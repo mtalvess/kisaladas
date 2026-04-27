@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kisaladas Lanchonete | O Sabor que Impressiona</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#D20A11',
+                            yellow: '#FFD700',
+                            dark: '#0F0F0B',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #0F0F0B; color: white; }
+        .font-black { font-weight: 900; }
+        .drop-shadow-glow { filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.4)); }
+        .food-card { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .food-card:hover { border-color: rgba(255, 215, 0, 0.3); transform: translateY(-8px); }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #222; }
+        ::-webkit-scrollbar-thumb:hover { background: #FFD700; }
+        .mobile-menu { transform: translateX(100%); transition: transform 0.4s ease-in-out; }
+        .mobile-menu.active { transform: translateX(0); }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-[#0F0F0B]/90 backdrop-blur-md border-b border-white/5 px-6 md:px-12 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 bg-[#FFD700] rounded-full flex items-center justify-center shadow-lg shadow-[#FFD700]/10">
+                <i data-lucide="utensils" class="text-black w-6 h-6"></i>
+            </div>
+            <div>
+                <span class="font-black text-xl tracking-tighter uppercase block leading-none">KiSaladas</span>
+                <span class="text-[10px] text-[#FFD700] font-bold tracking-widest uppercase">Lanchonete</span>
+            </div>
+        </div>
+
+        <div class="hidden md:flex items-center gap-10 text-[10px] font-black uppercase tracking-widest text-white/70">
+            <a href="#menu" class="hover:text-[#FFD700] transition-colors">Cardápio</a>
+            <a href="#location" class="hover:text-[#FFD700] transition-colors">Localização</a>
+            <a href="#hours" class="hover:text-[#FFD700] transition-colors">Horários</a>
+            <a href="https://wa.me/5583998830530" target="_blank" class="bg-brand-red px-8 py-3 hover:bg-white hover:text-black transition-all font-black">
+                Pedir Agora
+            </a>
+        </div>
+
+        <button class="md:hidden text-[#FFD700]" onclick="toggleMenu(true)">
+            <i data-lucide="menu" class="w-8 h-8"></i>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-overlay" class="mobile-menu fixed inset-0 z-[100] bg-black p-8 flex flex-col items-center justify-center gap-8">
+        <button onclick="toggleMenu(false)" class="absolute top-6 right-6">
+            <i data-lucide="x" class="w-10 h-10 text-[#FFD700]"></i>
+        </button>
+        <a href="#menu" onclick="toggleMenu(false)" class="text-3xl font-black uppercase tracking-tighter italic">Cardápio</a>
+        <a href="#location" onclick="toggleMenu(false)" class="text-3xl font-black uppercase tracking-tighter italic">Localização</a>
+        <a href="#hours" onclick="toggleMenu(false)" class="text-3xl font-black uppercase tracking-tighter italic">Horários</a>
+        <a href="https://wa.me/5583998830530" class="text-3xl font-black uppercase tracking-tighter italic text-brand-red">WhatsApp</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-[90vh] lg:h-screen flex items-center px-6 md:px-12 py-20 lg:py-0 overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-r from-[#0F0F0B] via-[#0F0F0B]/90 to-[#0F0F0B]/20 lg:via-[#0F0F0B]/80 z-10"></div>
+            <img 
+                src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=2000&auto=format&fit=crop" 
+                alt="Banner" 
+                class="w-full h-full object-cover grayscale-[0.3]"
+            />
+        </div>
+
+        <div class="relative z-20 max-w-5xl w-full">
+            <div class="flex items-center gap-3 mb-8">
+                <span class="bg-brand-red text-white text-[10px] font-black px-4 py-2 uppercase tracking-widest italic skew-x-[-12deg] shadow-lg shadow-red-900/40">5 Anos Fazendo História</span>
+                <div class="flex text-[#FFD700] gap-1">
+                    <i data-lucide="star" class="w-4 h-4 fill-current drop-shadow-glow"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current drop-shadow-glow"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current drop-shadow-glow"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current drop-shadow-glow"></i>
+                    <i data-lucide="star" class="w-4 h-4 fill-current drop-shadow-glow"></i>
+                </div>
+            </div>
+            <h1 class="text-5xl sm:text-7xl md:text-8xl lg:text-[7rem] font-black uppercase italic leading-[1] lg:leading-[0.9] mb-8 tracking-tighter">
+                Sabor que <br class="hidden sm:block">
+                <span class="text-[#FFD700] drop-shadow-[0_0_25px_rgba(255,215,0,0.4)]">Impressiona.</span>
+            </h1>
+            <p class="text-gray-300 text-lg md:text-xl lg:text-2xl max-w-2xl mb-12 font-medium leading-relaxed">
+                Artesanal, farto e preparado com a tradição que conquistou o Eusébio. 
+                Peça agora e descubra por que somos a número 1 da região.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-5">
+                <a href="#menu" class="group relative bg-[#FFD700] text-black font-black py-5 px-10 uppercase tracking-widest text-sm text-center">
+                    <span class="relative z-10">Ver Cardápio</span>
+                </a>
+                <a href="https://wa.me/5583998830530" target="_blank" class="group border-2 border-white/20 hover:border-brand-red hover:text-brand-red py-5 px-10 uppercase font-black tracking-widest text-sm transition-all flex items-center justify-center gap-4">
+                    Pedir no WhatsApp <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-2 transition-transform"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section id="menu" class="py-32 px-6 md:px-12 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row items-baseline justify-between mb-20 gap-4">
+            <div>
+                <span class="text-brand-red font-black uppercase tracking-[0.4em] text-xs block mb-4">Combos Destacados</span>
+                <h2 class="text-5xl md:text-7xl font-black uppercase tracking-tighter italic">Favoritos do <span class="text-[#FFD700]">Tio.</span></h2>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <!-- Combo 1 -->
+            <div class="bg-[#1A1A15] border border-white/5 flex flex-col md:flex-row group overflow-hidden food-card">
+                <div class="md:w-1/2 aspect-square md:aspect-auto overflow-hidden relative">
+                    <span class="absolute top-4 left-4 z-20 bg-[#FFD700] text-black text-[10px] font-black px-4 py-1 uppercase italic tracking-tighter">O Mais Pedido</span>
+                    <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                </div>
+                <div class="md:w-1/2 p-8 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-black uppercase italic mb-4">Chikem Bacon</h3>
+                        <p class="text-gray-400 text-sm mb-6">Frango crocante, bacon selecionado e queijo derretido.</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-black text-[#FFD700]">R$ 30,00</p>
+                        <a href="https://wa.me/5583998830530" class="mt-4 block text-center bg-[#FFD700] text-black py-4 font-black uppercase text-xs tracking-widest">Pedir Agora</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Combo 2 -->
+            <div class="bg-[#1A1A15] border border-white/5 flex flex-col md:flex-row group overflow-hidden food-card">
+                <div class="md:w-1/2 aspect-square md:aspect-auto overflow-hidden relative">
+                    <span class="absolute top-4 left-4 z-20 bg-[#FFD700] text-black text-[10px] font-black px-4 py-1 uppercase italic tracking-tighter">Favorito</span>
+                    <img src="https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=600&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                </div>
+                <div class="md:w-1/2 p-8 flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-black uppercase italic mb-4">Pastéis + Guaraná</h3>
+                        <p class="text-gray-400 text-sm mb-6">3 pastéis sequinhos acompanhados de Guaraná gelado.</p>
+                    </div>
+                    <div>
+                        <p class="text-3xl font-black text-[#FFD700]">R$ 33,00</p>
+                        <a href="https://wa.me/5583998830530" class="mt-4 block text-center bg-[#FFD700] text-black py-4 font-black uppercase text-xs tracking-widest">Pedir Agora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-20 px-6 mt-20 border-t border-white/5">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="flex items-center gap-3">
+                <i data-lucide="utensils" class="text-[#FFD700] w-10 h-10"></i>
+                <span class="font-black text-3xl tracking-tighter uppercase italic">KiSaladas</span>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="text-white hover:text-[#FFD700] transition-colors"><i data-lucide="instagram"></i></a>
+                <a href="#" class="text-white hover:text-green-500 transition-colors"><i data-lucide="message-circle"></i></a>
+            </div>
+            <div class="text-center md:text-right">
+                <p class="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-2">Eusébio - Venha nos visitar</p>
+                <p class="text-white font-black text-xl italic">(83) 99883-0530</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp CTA -->
+    <a href="https://wa.me/5583998830530" target="_blank" class="fixed bottom-8 right-8 z-[100] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform">
+        <i data-lucide="message-circle" class="w-8 h-8"></i>
+    </a>
+
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Mobile Menu Logic
+        function toggleMenu(show) {
+            const overlay = document.getElementById('mobile-overlay');
+            if (show) {
+                overlay.classList.add('active');
+            } else {
+                overlay.classList.remove('active');
+            }
+        }
+    </script>
+</body>
+</html>
