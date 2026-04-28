@@ -66,6 +66,7 @@
             color: #0F0F0B;
             font-weight: 900;
             transition: transform 0.2s;
+            cursor: pointer;
         }
         .btn-primary:hover { transform: scale(1.05); }
     </style>
@@ -87,18 +88,15 @@
 
         <nav class="hidden lg:flex items-center gap-10">
             <a href="#menu" class="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-[#FFD700] transition">Cardápio</a>
-            <a href="#contato" class="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-[#FFD700] transition">Contato</a>
+            <a href="#contato" class="text-[10px] font-black uppercase tracking-widest text-gray-500 hover:text-[#FFD700] transition">Onde Estamos</a>
         </nav>
 
         <div class="flex items-center gap-5">
-            <div class="hidden sm:flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                <span class="text-[10px] font-black uppercase text-green-500">Aberto agora</span>
-            </div>
+            <div id="status-loja" class="hidden sm:flex items-center gap-2">
+                </div>
             <button onclick="enviarWhatsApp()" class="relative bg-[#18181b] border border-white/10 w-12 h-12 rounded-2xl flex items-center justify-center hover:scale-105 transition shadow-xl group">
                 <i data-lucide="shopping-bag" class="text-[#FFD700] w-5 h-5"></i>
                 <span id="cart-count" class="absolute -top-2 -right-2 bg-[#D20A11] text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-[#18181b]">0</span>
-                <span class="absolute top-14 right-0 bg-[#FFD700] text-black text-[9px] font-black px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition whitespace-nowrap">FINALIZAR PEDIDO</span>
             </button>
         </div>
     </header>
@@ -110,7 +108,7 @@
                 O SABOR <br /> QUE <span class="text-[#FFD700]">DOMINOU.</span>
             </h2>
             <p class="text-gray-400 text-lg mb-8 max-w-lg mx-auto lg:mx-0">
-                Os melhores combos, lanches e açaís de Lagoa Seca. Adicione ao carrinho e finalize no WhatsApp!
+                Os melhores combos e lanches de Lagoa Seca. Peça agora e receba em casa!
             </p>
             <a href="#menu" class="btn-primary inline-block px-8 py-4 rounded-xl text-sm tracking-widest">ABRIR CARDÁPIO</a>
         </div>
@@ -140,64 +138,95 @@
     </section>
 
     <footer id="contato" class="py-20 px-6 border-t border-white/5 text-center">
-        <h3 class="font-outfit font-black text-2xl mb-4 italic">Finalize seu Carrinho</h3>
-        <p class="text-gray-500 mb-8 uppercase text-xs tracking-widest font-bold">Clique no botão abaixo para enviar o pedido</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-4xl mx-auto mb-16">
+            <div class="text-center md:text-left">
+                <i data-lucide="map-pin" class="text-[#FFD700] mb-4 w-8 h-8 mx-auto md:mx-0"></i>
+                <h3 class="font-outfit font-black text-2xl mb-2 italic">Onde Estamos</h3>
+                <p class="text-gray-400 uppercase text-xs tracking-widest">R. João Eusébio dos Santos, 127</p>
+                <p class="text-gray-400 uppercase text-xs tracking-widest">Lagoa Seca - PB</p>
+            </div>
+            <div class="text-center md:text-left border-t md:border-t-0 md:border-l border-white/10 pt-10 md:pt-0 md:pl-12">
+                <i data-lucide="clock" class="text-[#FFD700] mb-4 w-8 h-8 mx-auto md:mx-0"></i>
+                <h3 class="font-outfit font-black text-2xl mb-2 italic">Horários</h3>
+                <p class="text-gray-400 uppercase text-[10px] tracking-widest mb-1">Segunda a Sexta: 14h às 22h</p>
+                <p class="text-gray-400 uppercase text-[10px] tracking-widest mb-1">Sábado: 11h às 17h</p>
+                <p class="text-red-500 uppercase text-[10px] font-bold tracking-widest">Domingo: Fechado</p>
+            </div>
+        </div>
+        
         <button onclick="enviarWhatsApp()" class="btn-primary px-10 py-5 rounded-2xl inline-flex items-center gap-3">
             <i data-lucide="send"></i>
-            ENVIAR PEDIDO PARA O WHATSAPP
+            FINALIZAR PEDIDO NO WHATSAPP
         </button>
     </footer>
 
     <script>
         const PRODUCTS = [
             // COMBOS
-            { id: 1, name: 'Combo Completo', price: 39.99, desc: '2 Hot Dogs + 10 Mini Salgados + Batata Frita + Molho da Casa.', category: 'combo', tag: 'CAMPEÃO' },
+            { id: 1, name: 'Combo Completo', price: 39.99, desc: '2 Hot Dogs + 10 Mini Salgados + Batata Frita + Molho da Casa.', category: 'combo', tag: 'MAIS VENDIDO' },
             { id: 2, name: 'Combo Kitudão', price: 38.00, desc: 'Hambúrguer Kitudão + Batata Frita + Refrigerante Lata.', category: 'combo' },
-            { id: 3, name: 'Chikem Bacom Combo', price: 30.00, desc: 'Sanduíche Chikem Bacom + Batata Frita + Refrigerante.', category: 'combo' },
+            { id: 3, name: 'Combo Chiken Bacon', price: 30.00, desc: 'Sanduíche Chiken Bacon + Batata Frita + Refrigerante.', category: 'combo' },
             { id: 4, name: 'Combo Saladão', price: 27.00, desc: 'Sanduíche Saladão + Batata Frita + Refrigerante.', category: 'combo' },
             { id: 5, name: 'Combo 3 Pastéis', price: 33.00, desc: '3 Pastéis tradicionais + 1 Guaraná.', category: 'combo' },
-            { id: 6, name: 'Combo Irresistível', price: 30.00, desc: 'Macarronada + Salada 400ml + Fanta Laranja ou Uva.', category: 'combo' },
-            { id: 7, name: 'Combo Especial', price: 15.99, desc: '1 Salada P + 1 Hot Dog + 1 Coca Lata.', category: 'combo' },
-            { id: 8, name: 'Combo Duplo', price: 15.99, desc: '2 Hot Dogs + 2 Refrescos.', category: 'combo' },
-            { id: 9, name: 'Combo Satisfação', price: 16.00, desc: '1 Pastel + 1 Hot Dog + 1 Refresco.', category: 'combo' },
-            { id: 10, name: 'Combo Trio', price: 25.99, desc: 'Pastel + Batata Frita + Suco + Sobremesa.', category: 'combo' },
+            { id: 6, name: 'Combo Irresistível', price: 30.00, desc: 'Macarronada + Salada de Frutas 400ml + Fanta.', category: 'combo' },
+            { id: 7, name: 'Combo Satisfação', price: 16.00, desc: '1 Pastel + 1 Hot Dog + 1 Refresco.', category: 'combo' },
+            { id: 8, name: 'Combo Trio', price: 25.99, desc: 'Pastel + Batata Frita + Suco + Sobremesa.', category: 'combo' },
 
             // HAMBÚRGUERES
-            { id: 11, name: 'Kitudão', price: 23.00, desc: 'Hambúrguer, ovo, bacon, frango, salsicha, presunto, mussarela, calabresa, batata palha.', category: 'burger', tag: 'O BRABO' },
-            { id: 12, name: 'Sol Burger', price: 20.00, desc: 'Carne de sol, bacon, cream cheese.', category: 'burger' },
-            { id: 13, name: 'Big Bacon', price: 17.00, desc: 'Hambúrguer, mussarela, bacon, molho big mac.', category: 'burger' },
-            { id: 14, name: 'Fran Bacon', price: 17.00, desc: 'Frango cremoso, bacon, mussarela.', category: 'burger' },
-            { id: 15, name: 'Duplo Egg', price: 16.00, desc: 'Hambúrguer, mussarela, 2 ovos, bacon.', category: 'burger' },
-            { id: 16, name: 'Kalabreso', price: 16.00, desc: 'Hambúrguer, mussarela, calabresa.', category: 'burger' },
-            { id: 17, name: 'Chiken Bacon', price: 14.00, desc: 'Steak de frango, bacon, mussarela.', category: 'burger' },
-            { id: 18, name: 'Saladão', price: 12.00, desc: 'Hambúrguer, presunto, mussarela.', category: 'burger' },
+            { id: 9, name: 'Kitudão Premium', price: 23.00, desc: 'Pão, hambúrguer, ovo, bacon, frango, salsicha, presunto, mussarela, calabresa, batata palha.', category: 'burger', tag: 'O GIGANTE' },
+            { id: 10, name: 'Sol Burger', price: 20.00, desc: 'Pão, carne de sol, bacon e cream cheese.', category: 'burger' },
+            { id: 11, name: 'Big Bacon', price: 17.00, desc: 'Pão, hambúrguer, mussarela, bacon, molho big mac.', category: 'burger' },
+            { id: 12, name: 'Fran Bacon', price: 17.00, desc: 'Pão, frango cremoso, bacon, mussarela e molho.', category: 'burger' },
+            { id: 13, name: 'Saladão', price: 12.00, desc: 'Pão, carne, presunto, mussarela, alface e tomate.', category: 'burger' },
             
-            // PASTÉIS & SALGADOS
-            { id: 21, name: 'Pastel Tradicional', price: 8.00, desc: 'Escolha: Frango, Carne, Misto ou Queijo.', category: 'salgado' },
-            { id: 22, name: 'Mini Coxinha (20 un)', price: 10.00, desc: '20 unidades de coxinha de frango.', category: 'salgado' },
-            { id: 23, name: 'Bolinha de Queijo (20 un)', price: 10.00, desc: '20 unidades de bolinha de queijo.', category: 'salgado' },
-
             // REFEIÇÕES
-            { id: 24, name: 'Panqueca Completa Sol', price: 26.00, desc: 'Carne de sol, molho branco, fritas e salpicão.', category: 'prato' },
-            { id: 27, name: 'Strogonoff de Frango', price: 25.00, desc: 'Frango, arroz, fritas e salpicão.', category: 'prato' },
-            { id: 28, name: 'Lasanha Carne/Frango', price: 20.00, desc: 'Molho rosé, molho vermelho, presunto e mussarela.', category: 'prato' },
+            { id: 14, name: 'Panqueca Completa Sol', price: 26.00, desc: 'Carne de sol, molho branco, fritas e salpicão.', category: 'prato' },
+            { id: 15, name: 'Strogonoff de Frango', price: 25.00, desc: 'Acompanha arroz soltinho e batata frita.', category: 'prato' },
+            { id: 16, name: 'Lasanha Carne/Frango', price: 20.00, desc: 'Molho rosé, presunto e mussarela.', category: 'prato' },
 
-            // AÇAÍ E SALADAS
-            { id: 29, name: 'Açaí Trufado 400ml', price: 17.00, desc: '2 Cremes + 1 Fruta à escolha.', category: 'sobremesa', tag: 'GELADO' },
-            { id: 31, name: 'Salada de Frutas 400ml', price: 10.00, desc: 'Tradicional, Lá creme, Ninho ou Maracujá.', category: 'sobremesa' }
+            // SOBREMESAS
+            { id: 17, name: 'Açaí Trufado 400ml', price: 17.00, desc: 'Açaí premium com 2 cremes e 1 fruta.', category: 'sobremesa', tag: 'GELADO' },
+            { id: 18, name: 'Salada de Frutas 400ml', price: 10.00, desc: 'Tradicional, Ninho ou Maracujá.', category: 'sobremesa' }
         ];
 
         const CATEGORIES = [
             { key: 'all', label: 'Todos' },
             { key: 'combo', label: 'Combos' },
             { key: 'burger', label: 'Burgers' },
-            { key: 'salgado', label: 'Salgados' },
-            { key: 'prato', label: 'Refeições' },
+            { key: 'prato', label: 'Pratos' },
             { key: 'sobremesa', label: 'Açaí/Doces' },
         ];
 
+        let cart = [];
         let currentCategory = 'all';
-        let cart = []; // Agora o carrinho armazena os objetos
+
+        // LÓGICA DE STATUS DA LOJA
+        function checkStatus() {
+            const now = new Date();
+            const dia = now.getDay(); // 0=Dom, 1=Seg...
+            const hora = now.getHours();
+            const statusDiv = document.getElementById('status-loja');
+            
+            let aberto = false;
+
+            if (dia >= 1 && dia <= 5) { // Seg a Sex
+                if (hora >= 14 && hora < 22) aberto = true;
+            } else if (dia === 6) { // Sab
+                if (hora >= 11 && hora < 17) aberto = true;
+            }
+
+            if (aberto) {
+                statusDiv.innerHTML = `
+                    <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
+                    <span class="text-[10px] font-black uppercase text-green-500">Aberto Agora</span>
+                `;
+            } else {
+                statusDiv.innerHTML = `
+                    <span class="w-2 h-2 rounded-full bg-red-500"></span>
+                    <span class="text-[10px] font-black uppercase text-red-500">Fechado</span>
+                `;
+            }
+        }
 
         function renderFilters() {
             const container = document.getElementById('category-filters');
@@ -212,9 +241,7 @@
 
         function renderProducts() {
             const grid = document.getElementById('products-grid');
-            const filtered = currentCategory === 'all' 
-                ? PRODUCTS 
-                : PRODUCTS.filter(p => p.category === currentCategory);
+            const filtered = currentCategory === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === currentCategory);
 
             grid.innerHTML = filtered.map(p => `
                 <div class="product-card p-6 rounded-3xl flex flex-col justify-between group">
@@ -226,7 +253,7 @@
                         <h3 class="font-outfit font-black text-2xl uppercase italic mb-2">${p.name}</h3>
                         <p class="text-gray-500 text-sm leading-relaxed mb-6">${p.desc}</p>
                     </div>
-                    <button onclick="addToCart(${p.id})" class="w-full border border-white/10 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest group-hover:bg-white group-hover:text-black transition active:scale-95">
+                    <button onclick="addToCart(${p.id})" class="w-full border border-white/10 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest group-hover:bg-white group-hover:text-black transition">
                         Adicionar ao Carrinho
                     </button>
                 </div>
@@ -243,59 +270,44 @@
             const product = PRODUCTS.find(p => p.id === productId);
             cart.push(product);
             document.getElementById('cart-count').innerText = cart.length;
-            
-            // Feedback visual simples
-            const btn = event.target;
-            const originalText = btn.innerText;
-            btn.innerText = "ADICIONADO! ✓";
-            btn.classList.add("bg-green-600", "text-white");
-            setTimeout(() => {
-                btn.innerText = originalText;
-                btn.classList.remove("bg-green-600", "text-white");
-            }, 1000);
         }
 
         function enviarWhatsApp() {
             if (cart.length === 0) {
-                alert("Seu carrinho está vazio! Adicione alguns produtos antes de finalizar.");
+                alert("Adicione itens ao carrinho primeiro!");
                 return;
             }
 
-            const numeroWhatsApp = "5583998830530";
-            const codigoPedido = Math.floor(1000 + Math.random() * 9000); // Gera um código de 4 dígitos
+            const numero = "5583998830530";
+            const pedidoId = Math.floor(1000 + Math.random() * 9000);
             
-            let mensagem = `*NOVO PEDIDO - KISALADAS* 🍔\n`;
-            mensagem += `_Código do Pedido: #${codigoPedido}_\n`;
-            mensagem += `----------------------------------\n\n`;
+            let msg = `*NOVO PEDIDO - KISALADAS (#${pedidoId})*\n`;
+            msg += `----------------------------------\n`;
 
-            let total = 0;
-            
-            // Agrupar itens repetidos para ficar organizado
-            const itensAgrupados = cart.reduce((acc, item) => {
+            const agrupados = cart.reduce((acc, item) => {
                 acc[item.name] = (acc[item.name] || { qtd: 0, preco: item.price });
-                acc[item.name].qtd += 1;
+                acc[item.name].qtd++;
                 return acc;
             }, {});
 
-            for (const nome in itensAgrupados) {
-                const item = itensAgrupados[nome];
-                const subtotal = item.qtd * item.preco;
-                mensagem += `✅ *${item.qtd}x* ${nome}\n`;
-                mensagem += `   _V. Unit: R$ ${item.preco.toFixed(2)} | Sub: R$ ${subtotal.toFixed(2)}_\n\n`;
-                total += subtotal;
+            let total = 0;
+            for (const nome in agrupados) {
+                const item = agrupados[nome];
+                msg += `✅ *${item.qtd}x* ${nome} - R$ ${(item.qtd * item.preco).toFixed(2)}\n`;
+                total += item.qtd * item.preco;
             }
 
-            mensagem += `----------------------------------\n`;
-            mensagem += `💰 *TOTAL DO PEDIDO: R$ ${total.toFixed(2)}*\n\n`;
-            mensagem += `📍 *Por favor, informe seu endereço abaixo:*`;
+            msg += `----------------------------------\n`;
+            msg += `💰 *TOTAL: R$ ${total.toFixed(2)}*\n\n`;
+            msg += `📍 *LOJA:* R. João Eusébio dos Santos, 127\n`;
+            msg += `👉 *POR FAVOR, ENVIE SEU ENDEREÇO:*`;
 
-            const linkWhatsApp = `https://api.whatsapp.com/send?phone=${numeroWhatsApp}&text=${encodeURIComponent(mensagem)}`;
-            
-            window.open(linkWhatsApp, '_blank');
+            window.open(`https://wa.me/${numero}?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
+            checkStatus();
             renderFilters();
             renderProducts();
         });
