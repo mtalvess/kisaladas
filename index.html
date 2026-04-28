@@ -3,17 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KiSaladas - Menu Oficial</title>
+    <title>KiSaladas - O Sabor que Impressiona</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #0A0A0A; color: white; }
-        .gold-gradient { background: linear-gradient(135deg, #FFD700 0%, #B8860B 100%); }
-        .red-gradient { background: linear-gradient(135deg, #D20A11 0%, #8B0000 100%); }
-        .glass-card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08); backdrop-filter: blur(10px); }
-        .category-tab:hover { border-bottom: 2px solid #FFD700; }
-        .logo-glow { filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.3)); }
+        body { font-family: 'Inter', sans-serif; background-color: #0F0F0B; color: white; -webkit-font-smoothing: antialiased; }
+        .glow-yellow { box-shadow: 0 0 30px rgba(255, 215, 0, 0.2); }
+        .drop-shadow-glow { filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.4)); }
+        .food-card { background: #111; border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+        .logo-frame { border: 4px solid #D20A11; background-color: #FFD700; border-radius: 50%; padding: 5px; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; }
+        ::-webkit-scrollbar-thumb:hover { background: #FFD700; }
     </style>
 </head>
 <body>
@@ -28,113 +31,111 @@
         const { useState, useEffect } = React;
         const { motion, AnimatePresence } = window.Motion;
 
-        const MENU_DATA = {
-            combos: [
-                { id: 'c1', name: "Combo Especial", price: "15,99", items: "1 Salada P + 1 Hot Dog + 1 Coca Lata", icon: "⭐" },
-                { id: 'c2', name: "Combo Duplo", price: "15,99", items: "2 Hot Dogs + 2 Refrescos", icon: "🔥" },
-                { id: 'c3', name: "Combo Satisfação", price: "16,00", items: "1 Pastel Tradicional + 1 Hot Dog + 1 Refresco", icon: "😋" },
-                { id: 'c4', name: "Combo Trio", price: "25,99", items: "Batata Frita + 4 Pastéis + 1 Refresco", icon: "🍟" },
-                { id: 'c5', name: "Combo Completo", price: "39,99", items: "2 Hot Dogs + 10 Mini Salgados + Batata Frita + Molho da Casa", icon: "👑" },
-                { id: 'c6', name: "Combo Kitudão", price: "38,00", items: "Hambúrguer Kitudão + Batata + Refrigerante", icon: "🍔" }
-            ],
-            refeicoes: [
-                { id: 'r1', name: "Panqueca Completa Sol", price: "26,00", desc: "Carne de sol, molho branco, fritas e salpicão" },
-                { id: 'r2', name: "Lasanha Carne/Frango", price: "20,00", desc: "Molho rosé, molho vermelho, presunto e mussarela" },
-                { id: 'r3', name: "Macarronada Completa", price: "28,00", desc: "Salpicão, fritas, carne ou frango" },
-                { id: 'r4', name: "Prato da Casa", price: "25,00", desc: "Strogonoff de frango, arroz, fritas e salpicão" }
-            ],
-            doces: [
-                { id: 'a1', name: "Açaí no Copo (400ml)", price: "15,00", desc: "Escolha uma fruta: Banana, Morango ou Abacaxi" },
-                { id: 'a2', name: "Salada de Fruta Gourmet", price: "10,00", desc: "Creme de Ninho ou Maracujá (400ml)" },
-                { id: 'p1', name: "Panqueca Nutella e Morango", price: "15,00", desc: "Nutella premium com morangos frescos e Cream Cheese" }
-            ]
-        };
+        // Dados extraídos exatamente das suas fotos
+        const COMBOS = [
+            { id: 1, name: "Combo Completo", price: "39,99", desc: "2 Hot Dogs + 10 Mini Salgados + Batata Frita + Molho da Casa", emoji: "👑" },
+            { id: 2, name: "Combo Kitudão", price: "38,00", desc: "Hambúrguer Kitudão + Batata Frita + Refrigerante Lata", emoji: "🍔" },
+            { id: 3, name: "Combo 3 Pastéis", price: "33,00", desc: "3 Pastéis Tradicionais + 1 Guaraná 600ml", emoji: "🥟" },
+            { id: 4, name: "Combo Irresistível", price: "30,00", desc: "Macarronada + Salada de Fruta 400ml + Fanta Laranja/Uva", emoji: "🍝" },
+            { id: 5, name: "Chikem Bacon", price: "30,00", desc: "Hambúrguer de Frango com Bacon + Batata + Refri", emoji: "🍗" },
+            { id: 6, name: "Combo Especial", price: "15,99", desc: "Salada P + Hot Dog + Coca Lata", emoji: "⭐" }
+        ];
 
         function App() {
-            const [activeTab, setActiveTab] = useState('combos');
-            const [selectedItem, setSelectedItem] = useState(null);
+            const [step, setStep] = useState('welcome');
+            const [orderId, setOrderId] = useState('');
+            const [selected, setSelected] = useState(null);
 
-            const sendWhatsApp = (item) => {
-                const msg = `*PEDIDO KISALADAS*%0A%0A*Item:* ${item.name}%0A*Valor:* R$ ${item.price}%0A%0A_Vim pelo site! Gostaria de confirmar._`;
-                window.open(`https://wa.me/558398830530?text=${msg}`, '_blank');
+            useEffect(() => {
+                setOrderId(Math.floor(1000 + Math.random() * 9000).toString());
+                lucide.createIcons();
+            }, []);
+
+            useEffect(() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                lucide.createIcons();
+            }, [step]);
+
+            const getWaLink = () => {
+                if (!selected) return 'https://wa.me/558398830530';
+                const msg = `*NOVO PEDIDO - KISALADAS*%0A%0A*Pedido:* %23${orderId}%0A*Produto:* ${selected.name}%0A*Total:* R$ ${selected.price}%0A%0A_Gostaria de confirmar meu pedido pelo site!_`;
+                return `https://wa.me/558398830530?text=${msg}`;
             };
 
             return (
-                <div className="min-h-screen pb-24">
-                    {/* Header com Logo Oficial */}
-                    <nav className="p-6 flex flex-col items-center border-b border-white/10 bg-black/50 sticky top-0 z-50 backdrop-blur-md">
-                        <div className="flex items-center gap-4 mb-4">
-                            {/* Representação da Logo Amarela/Vermelha */}
-                            <div className="relative w-16 h-16 bg-[#FFD700] rounded-full flex items-center justify-center border-4 border-[#D20A11] logo-glow">
-                                <i data-lucide="utensils-cross" className="text-[#D20A11] w-8 h-8"></i>
+                <div className="min-h-screen flex flex-col">
+                    {/* Header com a Logo do Kisaladas (Amarelo e Vermelho) */}
+                    <header className="fixed top-0 inset-x-0 z-50 bg-black/90 backdrop-blur-xl border-b border-white/5 py-5 px-6 flex justify-between items-center">
+                        <div className="flex items-center gap-3 cursor-pointer" onClick={() => setStep('welcome')}>
+                            <div className="logo-frame w-14 h-14 flex items-center justify-center glow-yellow">
+                                <i data-lucide="utensils-cross" className="text-[#D20A11] w-7 h-7"></i>
                             </div>
-                            <div className="text-left">
-                                <h1 className="text-2xl font-black tracking-tighter uppercase italic leading-none">KiSaladas</h1>
-                                <p className="text-[#FFD700] text-[10px] font-bold tracking-[0.2em]">O SABOR QUE IMPRESSIONA</p>
+                            <div>
+                                <span className="font-black text-2xl uppercase leading-none block tracking-tighter">KiSaladas</span>
+                                <span className="text-[10px] text-[#FFD700] font-black tracking-[0.3em] uppercase opacity-80">LANCHONETE</span>
                             </div>
                         </div>
+                        <span className="text-[10px] font-black uppercase text-[#FFD700] animate-pulse">STATUS: ABERTO</span>
+                    </header>
 
-                        {/* Tabs de Categoria */}
-                        <div className="flex gap-6 overflow-x-auto w-full justify-center no-scrollbar py-2">
-                            {['combos', 'refeicoes', 'doces'].map(tab => (
-                                <button 
-                                    key={tab}
-                                    onClick={() => setActiveTab(tab)}
-                                    className={`uppercase text-xs font-black tracking-widest pb-1 transition-all ${activeTab === tab ? 'text-[#FFD700] border-b-2 border-[#FFD700]' : 'text-gray-500'}`}
-                                >
-                                    {tab}
-                                </button>
-                            ))}
-                        </div>
-                    </nav>
-
-                    {/* Conteúdo Dinâmico */}
-                    <main className="p-6 max-w-5xl mx-auto">
-                        <motion.div 
-                            key={activeTab}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="grid gap-4 sm:grid-cols-2"
-                        >
-                            {MENU_DATA[activeTab].map((item) => (
-                                <div 
-                                    key={item.id}
-                                    className="glass-card p-5 rounded-2xl flex justify-between items-center group hover:bg-white/5 transition-all"
-                                >
-                                    <div className="flex-1">
-                                        <div className="flex items-center gap-2 mb-1">
-                                            <span className="text-xl">{item.icon || '🍽️'}</span>
-                                            <h3 className="font-bold uppercase text-sm tracking-tight">{item.name}</h3>
-                                        </div>
-                                        <p className="text-gray-500 text-xs leading-relaxed pr-4">
-                                            {item.items || item.desc}
-                                        </p>
-                                        <p className="mt-3 text-[#FFD700] font-black italic">R$ {item.price}</p>
+                    <main className="flex-grow pt-32 pb-20 px-6 max-w-7xl mx-auto w-full">
+                        <AnimatePresence mode="wait">
+                            {step === 'welcome' && (
+                                <motion.div initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} exit={{opacity:0, y:-20}} className="grid lg:grid-cols-2 gap-12 items-center text-center lg:text-left">
+                                    <div>
+                                        <span className="bg-[#D20A11] px-5 py-2 inline-block text-[11px] font-black mb-8 italic skew-x-[-15deg]">QUALIDADE KISALADAS</span>
+                                        <h1 className="text-6xl md:text-8xl font-black uppercase italic leading-[0.9] mb-10 tracking-tighter">O SABOR QUE <br /><span className="text-[#FFD700] drop-shadow-glow">DOMINOU.</span></h1>
+                                        <p className="text-gray-400 text-xl mb-12 max-w-xl mx-auto lg:mx-0">Pastéis, Combos e Açaí. O padrão de qualidade que o Eusébio já conhece.</p>
+                                        <button onClick={() => setStep('menu')} className="bg-[#FFD700] text-black font-black py-7 px-14 uppercase tracking-widest text-lg shadow-2xl hover:scale-105 transition-all">VER CARDÁPIO</button>
                                     </div>
-                                    <button 
-                                        onClick={() => sendWhatsApp(item)}
-                                        className="bg-[#FFD700] hover:bg-[#D20A11] text-black hover:text-white p-3 rounded-xl transition-colors"
-                                    >
-                                        <i data-lucide="shopping-cart" className="w-5 h-5"></i>
-                                    </button>
-                                </div>
-                            ))}
-                        </motion.div>
+                                    <div className="relative">
+                                        <div className="absolute -inset-4 bg-[#FFD700]/10 blur-3xl rounded-full"></div>
+                                        <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=800" className="relative rounded-[3rem] shadow-2xl grayscale-[0.2] border border-white/10" />
+                                    </div>
+                                </motion.div>
+                            )}
+
+                            {step === 'menu' && (
+                                <motion.div initial={{opacity:0, scale:0.95}} animate={{opacity:1, scale:1}} exit={{opacity:0, scale:1.05}}>
+                                    <h2 className="text-4xl md:text-6xl font-black text-center mb-16 italic uppercase tracking-tighter">NOSSOS <span className="text-[#FFD700]">COMBOS.</span></h2>
+                                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+                                        {COMBOS.map(c => (
+                                            <div key={c.id} onClick={() => setSelected(c)} className={`food-card cursor-pointer rounded-3xl p-8 relative overflow-hidden ${selected?.id === c.id ? 'border-[#FFD700] scale-105 shadow-[0_0_40px_rgba(255,215,0,0.1)]' : 'opacity-70 hover:opacity-100'}`}>
+                                                {selected?.id === c.id && <div className="absolute top-0 right-0 bg-[#FFD700] text-black px-4 py-1 text-[10px] font-black uppercase tracking-taper">Selecionado</div>}
+                                                <span className="text-5xl block mb-4">{c.emoji}</span>
+                                                <h3 className="font-black uppercase italic tracking-tighter text-2xl mb-2">{c.name}</h3>
+                                                <p className="text-gray-500 text-sm mb-6 leading-tight h-10 overflow-hidden">{c.desc}</p>
+                                                <p className="text-[#FFD700] font-black text-3xl tracking-tighter">R$ {c.price}</p>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className="sticky bottom-10 inset-x-0">
+                                        <button disabled={!selected} onClick={() => setStep('delivery')} className={`w-full py-8 text-xl font-black uppercase tracking-widest rounded-2xl shadow-2xl transition-all ${selected ? 'bg-[#FFD700] text-black scale-100' : 'bg-white/5 text-gray-700 scale-95'}`}>
+                                            {selected ? `PEDIR ${selected.name}` : 'ESCOLHA UM ITEM'}
+                                        </button>
+                                    </div>
+                                </motion.div>
+                            )}
+
+                            {step === 'delivery' && (
+                                <motion.div initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} className="text-center max-w-3xl mx-auto">
+                                    <h2 className="text-6xl md:text-8xl font-black uppercase mb-10 italic tracking-tighter">QUASE <br/><span className="text-[#FFD700]">LÁ.</span></h2>
+                                    <div className="bg-[#111] p-10 rounded-[2.5rem] border border-white/5 mb-12 text-left relative overflow-hidden">
+                                        <div className="absolute top-0 right-0 w-32 h-32 bg-[#D20A11]/10 blur-3xl"></div>
+                                        <p className="text-gray-500 font-black uppercase text-[10px] mb-4 tracking-[.3em]">RECIBO DO PEDIDO #{orderId}</p>
+                                        <p className="text-3xl font-black uppercase italic mb-2">{selected?.name}</p>
+                                        <p className="text-5xl font-black text-[#FFD700]">R$ {selected?.price}</p>
+                                        <div className="mt-6 pt-6 border-t border-white/5 text-xs text-gray-500">O pedido será enviado para o WhatsApp oficial do Kisaladas.</div>
+                                    </div>
+                                    <a href={getWaLink()} target="_blank" className="bg-[#25D366] text-white font-black py-10 px-12 block uppercase tracking-widest text-2xl shadow-2xl hover:scale-105 transition-all rounded-3xl">FINALIZAR NO WHATSAPP</a>
+                                    <button onClick={() => setStep('menu')} className="mt-8 text-gray-500 font-black uppercase text-xs tracking-widest hover:text-white transition-all">← VOLTAR AO MENU</button>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
                     </main>
 
-                    {/* Footer Estratégico */}
-                    <footer className="fixed bottom-0 inset-x-0 p-4 bg-black/80 backdrop-blur-lg border-t border-white/5 flex justify-around items-center">
-                        <div className="text-center">
-                            <p className="text-[10px] text-gray-500 font-bold uppercase">Tempo Médio</p>
-                            <p className="text-xs font-black uppercase tracking-tighter">25-40 min</p>
-                        </div>
-                        <div className="h-8 w-[1px] bg-white/10"></div>
-                        <div className="text-center">
-                            <p className="text-[10px] text-gray-500 font-bold uppercase">Status</p>
-                            <p className="text-xs font-black uppercase text-green-500 flex items-center gap-1">
-                                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Aberto
-                            </p>
-                        </div>
+                    <footer className="py-12 px-6 border-t border-white/5 text-center opacity-30 text-[10px] font-black uppercase tracking-[0.5em]">
+                        © 2026 KISALADAS - DESIGNER AUTHORITY
                     </footer>
                 </div>
             );
@@ -142,9 +143,6 @@
 
         const root = ReactDOM.createRoot(document.getElementById('root'));
         root.render(<App />);
-        
-        // Inicializa ícones após render
-        setTimeout(() => lucide.createIcons(), 500);
     </script>
 </body>
 </html>
