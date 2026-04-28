@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KiSaladas Premium - O Sabor que Impressiona</title>
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -88,7 +86,6 @@
 
     <div id="root"></div>
 
-    <!-- Bibliotecas Necessárias -->
     <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -99,7 +96,6 @@
         const { useState, useEffect, useMemo } = React;
         const { motion, AnimatePresence } = FramerMotion;
 
-        // Ícone customizado para carregar via CDN
         const Icon = ({ name, size = 24, className = "" }) => {
             const lucideIcon = lucide.icons[name];
             if (!lucideIcon) return null;
@@ -123,21 +119,38 @@
         };
 
         const PRODUCTS = [
-            { id: 101, name: "Combo Kitudão", price: 38.00, desc: "Hambúrguer Kitudão + Batata Frita + Refrigerante Lata.", image: "https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=800", category: 'combo', tag: "MAIS PEDIDO" },
-            { id: 102, name: "Combo 3 Pastéis", price: 33.00, desc: "3 Pastéis Tradicionais + 1 Guaraná 600ml.", category: 'combo' },
-            { id: 103, name: "Combo Irresistível", price: 30.00, desc: "Macarronada + Salada de Frutas 400ml + Fanta de Laranja ou Uva.", category: 'combo' },
-            { id: 104, name: "Combo Especial", price: 15.99, desc: "1 Salada P + 1 Hot Dog + 1 Coca Lata.", category: 'combo' },
-            { id: 201, name: "Kitudão Premium", price: 23.00, desc: "Pão, hambúrguer, ovo, bacon, frango, salsicha, presunto, mussarela, calabresa, batata palha, molho big mac, alface e tomate.", image: "https://images.unsplash.com/photo-1571091718767-18b5c1457add?q=80&w=800", category: 'burger', tag: "O MONSTRO" },
-            { id: 202, name: "Sol Burger", price: 20.00, desc: "Pão, carne de sol desfiada, bacon crocante e cream cheese original.", category: 'burger' },
-            { id: 203, name: "Chiken Bacon", price: 14.00, desc: "Pão, steak de frango, bacon, mussarela, maionese hellmann's e alface.", category: 'burger' },
-            { id: 204, name: "Big Bacon", price: 17.00, desc: "Pão, hambúrguer, mussarela, bacon em dobro, molho big mac, alface e tomate.", category: 'burger' },
-            { id: 301, name: "Panqueca Completa Sol", price: 26.00, desc: "Carne de sol, molho branco especial, batata frita e salpicão.", category: 'prato' },
-            { id: 302, name: "Prato Especial", price: 20.00, desc: "Creme de galinha suculento, arroz soltinho, salpicão e batata frita.", category: 'prato' },
-            { id: 303, name: "Strogonoff da Casa", price: 25.00, desc: "Strogonoff de frango, arroz e batata frita crocante.", category: 'prato' },
-            { id: 401, name: "Açaí Trufado 400ml", price: 17.00, desc: "Açaí puro com duas opções de creme e fruta.", category: 'sobremesa', tag: "GELADINHO" },
-            { id: 402, name: "Salada no Copo 400ml", price: 10.00, desc: "Mix de frutas frescas. Opções: Tradicional, Lá Creme ou Ninho.", category: 'sobremesa' },
-            { id: 501, name: "Pastel Especial de Carne", price: 10.00, desc: "Carne com Queijo, Bacon ou Cream Cheese.", category: 'pastel' },
-            { id: 502, name: "Mini Salgados (20 un)", price: 10.00, desc: "Coxinhas de frango ou Bolinhas de queijo.", category: 'pastel', tag: "PRA GALERA" }
+            // COMBOS
+            { id: 1, name: "Combo Completo", price: 39.99, desc: "2 Hot Dogs + 10 Mini Salgados + Batata Frita + Molho da Casa.", category: 'combo', tag: "CAMPEÃO" },
+            { id: 2, name: "Combo Kitudão", price: 38.00, desc: "Hambúrguer Kitudão + Batata Frita + Refrigerante Lata.", category: 'combo' },
+            { id: 3, name: "Combo 3 Pastéis", price: 33.00, desc: "3 Pastéis Tradicionais + 1 Guaraná 600ml.", category: 'combo' },
+            { id: 4, name: "Combo Irresistível", price: 30.00, desc: "Macarronada + Salada de Frutas 400ml + Fanta Laranja/Uva.", category: 'combo' },
+            { id: 5, name: "Combo Chickem Bacon", price: 30.00, desc: "Chickem Bacon + Batata Frita + Refrigerante Lata.", category: 'combo' },
+            { id: 6, name: "Combo Especial", price: 15.99, desc: "Salada P + Hot Dog + Coca Lata.", category: 'combo' },
+
+            // BURGERS
+            { id: 7, name: "Kitudão Premium", price: 23.00, desc: "Pão, hambúrguer, ovo, bacon, frango, salsicha, presunto, mussarela, calabresa, batata palha, molho big mac, alface e tomate.", category: 'burger', tag: "O MONSTRO" },
+            { id: 8, name: "Sol Burger", price: 20.00, desc: "Pão, carne de sol desfiada, bacon crocante e cream cheese original.", category: 'burger' },
+            { id: 9, name: "Big Bacon", price: 17.00, desc: "Pão, hambúrguer, mussarela, bacon em dobro, molho big mac, alface e tomate.", category: 'burger' },
+            { id: 10, name: "Chicken Bacon", price: 14.00, desc: "Pão, steak de frango, bacon, mussarela, maionese hellmann's e alface.", category: 'burger' },
+            { id: 11, name: "Ki-Burgão", price: 15.00, desc: "Pão, hambúrguer, ovo, salsicha, presunto, mussarela, alface, tomate e batata palha.", category: 'burger' },
+            { id: 12, name: "Cheddar Bacon", price: 15.00, desc: "Pão, hambúrguer, muito cheddar e bacon crocante.", category: 'burger' },
+
+            // PRATOS
+            { id: 13, name: "Panqueca de Carne de Sol", price: 26.00, desc: "2 Panquecas grandes, molho branco, batata frita e salpicão.", category: 'prato' },
+            { id: 14, name: "Strogonoff de Frango", price: 25.00, desc: "Acompanha arroz soltinho e batata frita crocante.", category: 'prato' },
+            { id: 15, name: "Prato Especial", price: 20.00, desc: "Creme de galinha, arroz, salpicão e batata frita.", category: 'prato' },
+            { id: 16, name: "Macarronada KiSaladas", price: 18.00, desc: "Massa premium ao molho bolonhesa ou frango.", category: 'prato' },
+
+            // PASTÉIS E SALGADOS
+            { id: 17, name: "Pastel Especial", price: 10.00, desc: "Carne com Queijo, Bacon ou Cream Cheese.", category: 'pastel' },
+            { id: 18, name: "Cento de Salgados", price: 45.00, desc: "100 mini salgados variados (festa).", category: 'pastel' },
+            { id: 19, name: "Mini Salgados (20 un)", price: 10.00, desc: "Porção de coxinha ou bolinha de queijo.", category: 'pastel' },
+            { id: 20, name: "Hot Dog Simples", price: 8.00, desc: "Pão, 2 salsichas, molho e batata palha.", category: 'pastel' },
+
+            // SOBREMESAS / AÇAÍ
+            { id: 21, name: "Açaí Trufado 400ml", price: 17.00, desc: "Açaí premium com 2 cremes e 1 fruta à escolha.", category: 'sobremesa', tag: "GELADO" },
+            { id: 22, name: "Salada de Frutas 400ml", price: 10.00, desc: "Mix de frutas frescas (Tradicional, Lá Creme ou Ninho).", category: 'sobremesa' },
+            { id: 23, name: "Copo da Felicidade", price: 15.00, desc: "Camadas de creme, chocolate e bombom.", category: 'sobremesa' }
         ];
 
         const Navbar = ({ onOpenMenu, onOpenAbout, isOpen, cartCount }) => (
@@ -174,22 +187,11 @@
             const [cart, setCart] = useState([]);
             const [isCartOpen, setIsCartOpen] = useState(false);
             const [isAboutOpen, setIsAboutOpen] = useState(false);
-            const [isOpen, setIsOpen] = useState(false);
+            const [isOpen, setIsOpen] = useState(true);
 
             useEffect(() => {
                 const loader = document.getElementById('loading');
                 if (loader) loader.style.display = 'none';
-                const checkStoreStatus = () => {
-                    const now = new Date();
-                    const day = now.getDay();
-                    const currentTime = now.getHours() * 60 + now.getMinutes();
-                    let op = false;
-                    if (day >= 1 && day <= 5) op = currentTime >= 120 && currentTime < 1320;
-                    else if (day === 6) op = currentTime >= 660 && currentTime < 1020;
-                    setIsOpen(op);
-                };
-                checkStoreStatus();
-                setInterval(checkStoreStatus, 60000);
             }, []);
 
             const filteredProducts = activeTab === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === activeTab);
@@ -206,10 +208,10 @@
             };
 
             const getWhatsAppLink = () => {
-                const phone = "5585998830530";
-                let t = "🍟 *PEDIDO KISALADAS* 🍟\n\n";
+                const phone = "558398830530";
+                let t = "🍟 *NOVO PEDIDO KISALADAS* 🍟\n\n";
                 cart.forEach(i => t += `• *${i.quantity}x* ${i.product.name} - R$ ${(i.product.price * i.quantity).toFixed(2)}\n`);
-                t += `\n💰 *Total: R$ ${cartTotal.toFixed(2)}*\n\nVi no site premium!`;
+                t += `\n💰 *Total: R$ ${cartTotal.toFixed(2)}*\n\n_Pedido feito via Menu Digital Premium._`;
                 return `https://wa.me/${phone}?text=${encodeURIComponent(t)}`;
             };
 
@@ -221,13 +223,13 @@
                         <section className="relative pt-40 pb-20 px-6 md:px-12 overflow-hidden border-b border-white/10">
                             <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
                                 <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}>
-                                    <div className="bg-secondary px-4 py-1 inline-block text-[10px] font-black mb-6 skew-x-[-15deg] uppercase">Destaque da Semana</div>
+                                    <div className="bg-secondary px-4 py-1 inline-block text-[10px] font-black mb-6 skew-x-[-15deg] uppercase">Qualidade Superior</div>
                                     <h2 className="text-6xl md:text-9xl font-display font-black uppercase italic leading-[0.85] tracking-tighter mb-8">O SABOR <br /> QUE <span className="text-primary glow-text-primary">DOMINOU.</span></h2>
-                                    <p className="text-gray-400 text-lg md:text-xl max-w-xl mb-12">Qualidade premium em Lagoa Seca.</p>
-                                    <button onClick={() => document.getElementById('menu').scrollIntoView({ behavior: 'smooth' })} className="bg-primary text-black font-black py-6 px-12 rounded-2xl text-lg uppercase shadow-2xl hover:bg-white transition-all">PEDIR AGORA</button>
+                                    <p className="text-gray-400 text-lg md:text-xl max-w-xl mb-12">Os melhores combos e lanches de Lagoa Seca, agora na palma da sua mão.</p>
+                                    <button onClick={() => document.getElementById('menu').scrollIntoView({ behavior: 'smooth' })} className="bg-primary text-black font-black py-6 px-12 rounded-2xl text-lg uppercase shadow-2xl hover:bg-white transition-all">ABRIR CARDÁPIO</button>
                                 </motion.div>
-                                <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} className="relative aspect-square rounded-[4rem] overflow-hidden border border-white/10">
-                                    <img src="https://images.unsplash.com/photo-1594212699903-ec8a3eca50f5?q=80&w=800" className="w-full h-full object-cover" />
+                                <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} className="relative aspect-square rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl shadow-primary/5">
+                                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800" className="w-full h-full object-cover" />
                                 </motion.div>
                             </div>
                         </section>
@@ -238,7 +240,7 @@
                                     <h2 className="text-5xl md:text-7xl font-display font-black italic uppercase tracking-tighter">ESCOLHA O SEU <br/><span className="text-primary italic">FAVORITO.</span></h2>
                                     <div className="flex flex-wrap gap-2 bg-zinc-900 p-2 rounded-2xl border border-white/5">
                                         {['all', 'combo', 'burger', 'pastel', 'prato', 'sobremesa'].map(tab => (
-                                            <button key={tab} onClick={() => setActiveTab(tab)} className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase ${activeTab === tab ? 'bg-primary text-black' : 'text-gray-500'}`}>{tab}</button>
+                                            <button key={tab} onClick={() => setActiveTab(tab)} className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase transition-all ${activeTab === tab ? 'bg-primary text-black' : 'text-gray-500 hover:text-white'}`}>{tab === 'all' ? 'Todos' : tab}</button>
                                         ))}
                                     </div>
                                 </div>
@@ -246,12 +248,18 @@
                                     {filteredProducts.map(p => (
                                         <div key={p.id} className="luxury-card p-10 flex flex-col justify-between min-h-[360px]">
                                             <div>
-                                                <h4 className="text-3xl font-display font-black uppercase italic italic tracking-tighter mb-4 group-hover:text-primary">{p.name}</h4>
-                                                <p className="text-gray-500 text-sm mb-8">{p.desc}</p>
+                                                {p.tag && <span className="bg-primary/10 text-primary text-[9px] font-black px-3 py-1 rounded-full mb-4 inline-block tracking-widest">{p.tag}</span>}
+                                                <h4 className="text-3xl font-display font-black uppercase italic tracking-tighter mb-4">{p.name}</h4>
+                                                <p className="text-gray-500 text-sm mb-8 leading-relaxed">{p.desc}</p>
                                             </div>
                                             <div className="flex items-end justify-between">
-                                                <div><span className="text-[9px] font-bold text-gray-700 uppercase">Investimento</span><div className="text-primary font-black text-4xl italic">R$ {p.price.toFixed(2)}</div></div>
-                                                <button onClick={() => addToCart(p)} className="bg-primary w-14 h-14 rounded-2xl flex items-center justify-center text-black hover:bg-white transition-all"><Icon name="ShoppingBag" /></button>
+                                                <div>
+                                                    <span className="text-[9px] font-bold text-gray-700 uppercase tracking-widest">Preço</span>
+                                                    <div className="text-primary font-black text-4xl italic">R$ {p.price.toFixed(2)}</div>
+                                                </div>
+                                                <button onClick={() => addToCart(p)} className="bg-primary w-14 h-14 rounded-2xl flex items-center justify-center text-black hover:bg-white transition-all shadow-lg shadow-primary/20">
+                                                    <Icon name="ShoppingBag" />
+                                                </button>
                                             </div>
                                         </div>
                                     ))}
@@ -263,18 +271,28 @@
                             <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20">
                                 <div>
                                     <h2 className="text-5xl md:text-7xl font-display font-black uppercase tracking-tighter mb-10 italic">ONDE O SABOR <span className="text-primary">ACONTECE.</span></h2>
-                                    <p className="text-gray-400 font-bold">R. João Eusébio dos Santos, 127, Lagoa Seca - PB</p>
+                                    <p className="text-gray-400 font-bold mb-2">R. João Eusébio dos Santos, 127</p>
+                                    <p className="text-gray-500 text-sm">Lagoa Seca - Paraíba</p>
                                     <div className="mt-8 flex items-center gap-4 text-xs font-black uppercase tracking-widest bg-primary/5 p-4 rounded-2xl border border-primary/10 inline-flex">
-                                        <div className={`w-3 h-3 rounded-full ${isOpen ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
-                                        {isOpen ? 'Aberto agora!' : 'Fechado agora!'}
+                                        <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
+                                        Pronto para te atender!
                                     </div>
                                 </div>
                                 <div className="bg-[#111] p-10 md:p-16 rounded-[3rem] border border-white/5">
                                     <h4 className="font-display font-black uppercase text-2xl mb-10 flex items-center gap-3 italic"><Icon name="Clock" className="text-primary" /> Horários</h4>
-                                    <div className="space-y-4">
-                                        <div className="flex justify-between py-3 border-b border-white/5"><span className="uppercase text-[10px] font-black">Seg a Sex</span><span className="text-xs font-black">02:00 - 22:00</span></div>
-                                        <div className="flex justify-between py-3 border-b border-white/5"><span className="uppercase text-[10px] font-black">Sábado</span><span className="text-xs font-black">11:00 - 17:00</span></div>
-                                        <div className="flex justify-between py-3 font-black"><span className="uppercase text-[10px] text-zinc-700">Domingo</span><span className="text-xs text-zinc-700 uppercase">Fechado</span></div>
+                                    <div className="space-y-4 font-black">
+                                        <div className="flex justify-between py-3 border-b border-white/5 text-xs uppercase tracking-widest">
+                                            <span>Segunda a Sexta</span>
+                                            <span className="text-primary">12:00 - 22:00</span>
+                                        </div>
+                                        <div className="flex justify-between py-3 border-b border-white/5 text-xs uppercase tracking-widest">
+                                            <span>Sábado</span>
+                                            <span className="text-primary">11:00 - 17:00</span>
+                                        </div>
+                                        <div className="flex justify-between py-3 text-xs uppercase tracking-widest opacity-30">
+                                            <span>Domingo</span>
+                                            <span>Fechado</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -282,41 +300,69 @@
                         
                         <section className="h-20 bg-secondary flex items-center overflow-hidden border-y-4 border-primary">
                             <div className="flex animate-marquee whitespace-nowrap">
-                                {[1,2,3,4,5].map(i => <span key={i} className="mx-8 text-sm font-black uppercase text-white">KISALADAS PREMIUM ★ QUALIDADE SUPERIOR ★ </span>)}
+                                {[1,2,3,4,5].map(i => <span key={i} className="mx-8 text-sm font-black uppercase text-white">KISALADAS PREMIUM ★ QUALIDADE SUPERIOR ★ SABOR INCOMPARÁVEL ★ </span>)}
                             </div>
                         </section>
                     </main>
 
+                    {/* Carrinho / Drawer */}
                     <AnimatePresence>
                         {isCartOpen && (
                             <div className="fixed inset-0 z-[110] flex justify-end">
-                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsCartOpen(false)} className="absolute inset-0 bg-black/60 backdrop-blur-md" />
+                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsCartOpen(false)} className="absolute inset-0 bg-black/80 backdrop-blur-md" />
                                 <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} className="relative w-full max-w-md bg-zinc-950 border-l border-white/10 h-full flex flex-col p-8">
-                                    <div className="flex justify-between items-center mb-8"><h2 className="font-display font-black uppercase text-2xl italic">Minha Sacola</h2><button onClick={() => setIsCartOpen(false)}><Icon name="X" /></button></div>
+                                    <div className="flex justify-between items-center mb-8">
+                                        <h2 className="font-display font-black uppercase text-2xl italic">Minha Sacola</h2>
+                                        <button onClick={() => setIsCartOpen(false)} className="p-2 hover:bg-white/5 rounded-full"><Icon name="X" /></button>
+                                    </div>
                                     <div className="flex-grow overflow-y-auto space-y-6">
-                                        {cart.length === 0 ? <p className="text-center text-gray-500 py-20">Sua sacola está vazia.</p> : cart.map(i => (
-                                            <div key={i.product.id} className="flex justify-between items-center">
-                                                <div><h4 className="font-black uppercase text-sm">{i.product.name}</h4><span className="text-primary text-xs font-black">R$ {i.product.price.toFixed(2)}</span></div>
-                                                <div className="flex items-center gap-3"><span className="font-black">{i.quantity}x</span><button onClick={() => setCart(cart.filter(x => x.product.id !== i.product.id))} className="text-secondary"><Icon name="X" size={16} /></button></div>
+                                        {cart.length === 0 ? (
+                                            <div className="h-full flex flex-col items-center justify-center text-center opacity-20">
+                                                <Icon name="ShoppingBag" size={64} className="mb-4" />
+                                                <p className="font-black uppercase tracking-widest">Sacola vazia</p>
+                                            </div>
+                                        ) : cart.map(i => (
+                                            <div key={i.product.id} className="bg-white/5 p-4 rounded-2xl flex justify-between items-center">
+                                                <div>
+                                                    <h4 className="font-black uppercase text-xs mb-1">{i.product.name}</h4>
+                                                    <span className="text-primary text-sm font-black">R$ {(i.product.price * i.quantity).toFixed(2)}</span>
+                                                </div>
+                                                <div className="flex items-center gap-4">
+                                                    <span className="font-black text-lg">{i.quantity}x</span>
+                                                    <button onClick={() => setCart(cart.filter(x => x.product.id !== i.product.id))} className="text-secondary p-2 hover:bg-secondary/10 rounded-xl transition-all">
+                                                        <Icon name="Trash2" size={18} />
+                                                    </button>
+                                                </div>
                                             </div>
                                         ))}
                                     </div>
-                                    {cart.length > 0 && <div className="pt-8 border-t border-white/10 space-y-4"><div className="flex justify-between font-black"><span>Total</span><span className="text-primary text-2xl">R$ {cartTotal.toFixed(2)}</span></div><a href={getWhatsAppLink()} target="_blank" className="w-full bg-primary text-black font-black py-5 rounded-2xl block text-center uppercase shadow-2xl">Pedir no WhatsApp</a></div>}
+                                    {cart.length > 0 && (
+                                        <div className="pt-8 border-t border-white/10 space-y-4">
+                                            <div className="flex justify-between font-black items-end">
+                                                <span className="uppercase text-[10px] text-gray-500 tracking-widest">Total do Investimento</span>
+                                                <span className="text-primary text-3xl italic leading-none">R$ {cartTotal.toFixed(2)}</span>
+                                            </div>
+                                            <a href={getWhatsAppLink()} target="_blank" className="w-full bg-primary text-black font-black py-6 rounded-2xl block text-center uppercase shadow-2xl hover:bg-white transition-all">FINALIZAR NO WHATSAPP</a>
+                                        </div>
+                                    )}
                                 </motion.div>
                             </div>
                         )}
                     </AnimatePresence>
 
+                    {/* Modal Sobre */}
                     <AnimatePresence>
                         {isAboutOpen && (
                             <div className="fixed inset-0 z-[120] flex items-center justify-center p-6">
-                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsAboutOpen(false)} className="absolute inset-0 bg-black/80 backdrop-blur-xl" />
+                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsAboutOpen(false)} className="absolute inset-0 bg-black/90 backdrop-blur-2xl" />
                                 <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="relative w-full max-w-xl bg-zinc-900 border border-white/10 p-12 rounded-[3rem] shadow-2xl">
-                                     <button onClick={() => setIsAboutOpen(false)} className="absolute top-8 right-8 text-gray-500"><Icon name="X" /></button>
-                                     <h2 className="text-4xl md:text-5xl font-display font-black uppercase italic mb-8">SOBRE A <span className="text-primary italic">KISALADAS.</span></h2>
-                                     <p className="text-gray-300 mb-6 leading-relaxed">Elevando o conceito de lanche em Lagoa Seca com qualidade premium e sabor incomparável.</p>
-                                     <p className="font-bold text-white italic border-l-2 border-primary pl-4 py-1">"Criamos momentos através do sabor."</p>
-                                     <button onClick={() => setIsAboutOpen(false)} className="mt-10 bg-white/5 border border-white/10 py-4 px-8 rounded-xl text-[10px] font-black uppercase flex items-center gap-2 hover:bg-white/10 transition-all"><Icon name="ArrowLeft" size={14} /> Voltar</button>
+                                     <button onClick={() => setIsAboutOpen(false)} className="absolute top-8 right-8 text-gray-500 hover:text-white"><Icon name="X" /></button>
+                                     <h2 className="text-4xl md:text-5xl font-display font-black uppercase italic mb-8">KISALADAS <br/><span className="text-primary italic">PREMIUM.</span></h2>
+                                     <p className="text-gray-300 mb-6 leading-relaxed">Referência em sabor e qualidade em Lagoa Seca. Nosso compromisso é levar até você a experiência de um lanche premium, com ingredientes selecionados e o toque artesanal que você merece.</p>
+                                     <div className="p-6 bg-white/5 rounded-2xl border-l-4 border-primary">
+                                        <p className="font-black text-white italic text-sm">"Não vendemos apenas lanches, criamos momentos de satisfação através do sabor."</p>
+                                     </div>
+                                     <button onClick={() => setIsAboutOpen(false)} className="mt-10 bg-primary text-black py-4 px-10 rounded-xl text-[10px] font-black uppercase hover:bg-white transition-all">ENTENDIDO</button>
                                 </motion.div>
                             </div>
                         )}
