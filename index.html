@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet" />
     
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
@@ -29,7 +28,6 @@
 
         .font-outfit { font-family: 'Outfit', sans-serif; }
 
-        /* Animações Customizadas */
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -58,7 +56,6 @@
             transform: translateY(-5px);
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
@@ -112,7 +109,7 @@
                 O SABOR <br /> QUE <span class="text-[#FFD700]">DOMINOU.</span>
             </h2>
             <p class="text-gray-400 text-lg mb-8 max-w-lg mx-auto lg:mx-0">
-                Os melhores combos e lanches de Lagoa Seca, agora na palma da sua mão.
+                Os melhores combos, lanches e açaís de Lagoa Seca, agora na palma da sua mão.
             </p>
             <a href="#menu" class="btn-primary inline-block px-8 py-4 rounded-xl text-sm tracking-widest">ABRIR CARDÁPIO</a>
         </div>
@@ -129,8 +126,6 @@
             <div class="text-[#0F0F0B] font-black text-sm tracking-tighter flex gap-4 items-center">
                 <span class="whitespace-nowrap uppercase">KISALADAS PREMIUM ★ QUALIDADE SUPERIOR ★ SABOR INCOMPARÁVEL ★&nbsp;</span>
                 <span class="whitespace-nowrap uppercase">KISALADAS PREMIUM ★ QUALIDADE SUPERIOR ★ SABOR INCOMPARÁVEL ★&nbsp;</span>
-                <span class="whitespace-nowrap uppercase">KISALADAS PREMIUM ★ QUALIDADE SUPERIOR ★ SABOR INCOMPARÁVEL ★&nbsp;</span>
-                <span class="whitespace-nowrap uppercase">KISALADAS PREMIUM ★ QUALIDADE SUPERIOR ★ SABOR INCOMPARÁVEL ★&nbsp;</span>
             </div>
         </div>
     </div>
@@ -138,48 +133,77 @@
     <section id="menu" class="py-24 px-6 md:px-10 max-w-7xl mx-auto">
         <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
             <h2 class="font-outfit font-black text-5xl md:text-7xl italic leading-none">O NOSSO <br><span class="text-[#FFD700]">MENU</span></h2>
-            
-            <div id="category-filters" class="flex flex-wrap gap-2 bg-[#111] p-2 rounded-2xl border border-white/5">
-                </div>
+            <div id="category-filters" class="flex flex-wrap gap-2 bg-[#111] p-2 rounded-2xl border border-white/5"></div>
         </div>
-
-        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            </div>
+        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
     </section>
 
     <footer id="contato" class="py-20 px-6 border-t border-white/5 text-center">
         <h3 class="font-outfit font-black text-2xl mb-4 italic">Peça pelo WhatsApp</h3>
         <p class="text-gray-500 mb-8 uppercase text-xs tracking-widest font-bold">Atendimento das 18:00 às 23:00</p>
-        <a href="https://wa.me/SEU_NUMERO_AQUI" class="btn-primary px-10 py-5 rounded-2xl inline-flex items-center gap-3">
+        <a href="https://wa.me/5583998830530" class="btn-primary px-10 py-5 rounded-2xl inline-flex items-center gap-3">
             <i data-lucide="phone"></i>
             FAZER PEDIDO AGORA
         </a>
     </footer>
 
     <script>
-        // Dados dos Produtos
         const PRODUCTS = [
+            // COMBOS
             { id: 1, name: 'Combo Completo', price: 39.99, desc: '2 Hot Dogs + 10 Mini Salgados + Batata Frita + Molho da Casa.', category: 'combo', tag: 'CAMPEÃO' },
-            { id: 2, name: 'Combo Kitudão', price: 38.0, desc: 'Hambúrguer Kitudão + Batata Frita + Refrigerante Lata.', category: 'combo' },
-            { id: 7, name: 'Kitudão Premium', price: 23.0, desc: 'Pão, hambúrguer, ovo, bacon, frango, salsicha, presunto, mussarela, calabresa, batata palha.', category: 'burger', tag: 'O MONSTRO' },
-            { id: 10, name: 'Chicken Bacon', price: 14.0, desc: 'Pão, steak de frango, bacon, mussarela, maionese hellmann\'s e alface.', category: 'burger' },
-            { id: 14, name: 'Strogonoff de Frango', price: 25.0, desc: 'Acompanha arroz soltinho e batata frita crocante.', category: 'prato' },
-            { id: 21, name: 'Açaí Trufado 400ml', price: 17.0, desc: 'Açaí premium com 2 cremes e 1 fruta à escolha.', category: 'sobremesa', tag: 'GELADO' }
-            // Adicione os outros aqui seguindo o mesmo padrão...
+            { id: 2, name: 'Combo Kitudão', price: 38.00, desc: 'Hambúrguer Kitudão + Batata Frita + Refrigerante Lata.', category: 'combo' },
+            { id: 3, name: 'Chikem Bacom Combo', price: 30.00, desc: 'Sanduíche Chikem Bacom + Batata Frita + Refrigerante.', category: 'combo' },
+            { id: 4, name: 'Combo Saladão', price: 27.00, desc: 'Sanduíche Saladão + Batata Frita + Refrigerante.', category: 'combo' },
+            { id: 5, name: 'Combo 3 Pastéis', price: 33.00, desc: '3 Pastéis tradicionais + 1 Guaraná.', category: 'combo' },
+            { id: 6, name: 'Combo Irresistível', price: 30.00, desc: 'Macarronada + Salada 400ml + Fanta Laranja ou Uva.', category: 'combo' },
+            { id: 7, name: 'Combo Especial', price: 15.99, desc: '1 Salada P + 1 Hot Dog + 1 Coca Lata.', category: 'combo' },
+            { id: 8, name: 'Combo Duplo', price: 15.99, desc: '2 Hot Dogs + 2 Refrescos.', category: 'combo' },
+            { id: 9, name: 'Combo Satisfação', price: 16.00, desc: '1 Pastel + 1 Hot Dog + 1 Refresco.', category: 'combo' },
+            { id: 10, name: 'Combo Trio', price: 25.99, desc: 'Pastel + Batata Frita + Suco + Sobremesa.', category: 'combo' },
+
+            // HAMBÚRGUERES
+            { id: 11, name: 'Kitudão', price: 23.00, desc: 'Hambúrguer, ovo, bacon, frango, salsicha, presunto, mussarela, calabresa, batata palha, molho big mac.', category: 'burger', tag: 'O BRABO' },
+            { id: 12, name: 'Sol Burger', price: 20.00, desc: 'Carne de sol, bacon, cream cheese.', category: 'burger' },
+            { id: 13, name: 'Big Bacon', price: 17.00, desc: 'Hambúrguer, mussarela, bacon, molho big mac, alface, tomate.', category: 'burger' },
+            { id: 14, name: 'Fran Bacon', price: 17.00, desc: 'Frango cremoso, bacon, mussarela, molho big mac.', category: 'burger' },
+            { id: 15, name: 'Duplo Egg', price: 16.00, desc: 'Hambúrguer, mussarela, 2 ovos, bacon, alface, tomate.', category: 'burger' },
+            { id: 16, name: 'Kalabreso', price: 16.00, desc: 'Hambúrguer, mussarela, calabresa, molho big mac.', category: 'burger' },
+            { id: 17, name: 'Chiken Bacon', price: 14.00, desc: 'Steak de frango, bacon, mussarela, alface.', category: 'burger' },
+            { id: 18, name: 'Saladão', price: 12.00, desc: 'Hambúrguer, presunto, mussarela, alface, tomate.', category: 'burger' },
+            
+            // PASTÉIS & SALGADOS
+            { id: 19, name: 'Pastel de Carne de Sol', price: 13.00, desc: 'Carne de sol com cream cheese.', category: 'salgado' },
+            { id: 20, name: 'Pastel Frango/Bacon', price: 12.00, desc: 'Frango com bacon e mussarela.', category: 'salgado' },
+            { id: 21, name: 'Pastel Tradicional', price: 8.00, desc: 'Escolha: Frango, Carne, Misto ou Queijo.', category: 'salgado' },
+            { id: 22, name: 'Mini Coxinha (20 un)', price: 10.00, desc: '20 unidades de coxinha de frango.', category: 'salgado' },
+            { id: 23, name: 'Bolinha de Queijo (20 un)', price: 10.00, desc: '20 unidades de bolinha de queijo.', category: 'salgado' },
+
+            // REFEIÇÕES
+            { id: 24, name: 'Panqueca Completa Sol', price: 26.00, desc: 'Carne de sol, molho branco, fritas e salpicão.', category: 'prato' },
+            { id: 25, name: 'Panqueca Completa', price: 23.00, desc: 'Arroz, salpicão, fritas, carne ou frango.', category: 'prato' },
+            { id: 26, name: 'Macarronada Completa', price: 28.00, desc: 'Macarrão, salpicão, fritas, carne ou frango.', category: 'prato' },
+            { id: 27, name: 'Strogonoff de Frango', price: 25.00, desc: 'Frango, arroz, fritas e salpicão.', category: 'prato' },
+            { id: 28, name: 'Lasanha Carne/Frango', price: 20.00, desc: 'Molho rosé, molho vermelho, presunto e mussarela.', category: 'prato' },
+
+            // AÇAÍ E SALADAS
+            { id: 29, name: 'Açaí Trufado 400ml', price: 17.00, desc: '2 Cremes + 1 Fruta à escolha.', category: 'sobremesa', tag: 'GELADO' },
+            { id: 30, name: 'Açaí no Copo 400ml', price: 15.00, desc: '1 Creme + 1 Fruta à escolha.', category: 'sobremesa' },
+            { id: 31, name: 'Salada de Frutas 400ml', price: 10.00, desc: 'Tradicional, Lá creme, Ninho ou Maracujá.', category: 'sobremesa' },
+            { id: 32, name: 'Salada Creme Nutella 400ml', price: 12.00, desc: 'Salada de frutas premium com creme de Nutella.', category: 'sobremesa' }
         ];
 
         const CATEGORIES = [
             { key: 'all', label: 'Todos' },
             { key: 'combo', label: 'Combos' },
             { key: 'burger', label: 'Burgers' },
-            { key: 'prato', label: 'Pratos' },
-            { key: 'sobremesa', label: 'Sobremesas' },
+            { key: 'salgado', label: 'Salgados' },
+            { key: 'prato', label: 'Refeições' },
+            { key: 'sobremesa', label: 'Açaí/Doces' },
         ];
 
         let currentCategory = 'all';
         let cartCount = 0;
 
-        // Renderizar Filtros
         function renderFilters() {
             const container = document.getElementById('category-filters');
             container.innerHTML = CATEGORIES.map(cat => `
@@ -191,7 +215,6 @@
             `).join('');
         }
 
-        // Renderizar Produtos
         function renderProducts() {
             const grid = document.getElementById('products-grid');
             const filtered = currentCategory === 'all' 
@@ -226,7 +249,6 @@
             document.getElementById('cart-count').innerText = cartCount;
         }
 
-        // Inicialização
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             renderFilters();
