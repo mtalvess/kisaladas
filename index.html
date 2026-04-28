@@ -1,378 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KiSaladas Premium - O Sabor que Impressiona</title>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        display: ['Outfit', 'sans-serif'],
-                    },
-                    colors: {
-                        primary: '#FFD700',
-                        secondary: '#D20A11',
-                        bg: '#0F0F0B',
-                    },
-                    animation: {
-                        'marquee': 'marquee 25s linear infinite',
-                    },
-                    keyframes: {
-                        marquee: {
-                            '0%': { transform: 'translateX(0)' },
-                            '100%': { transform: 'translateX(-50%)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <style type="text/css">
-        @layer base {
-            body {
-                background-color: #0F0F0B;
-                color: white;
-                font-family: 'Inter', sans-serif;
-                -webkit-font-smoothing: antialiased;
-            }
-        }
-        .glow-primary { box-shadow: 0 0 20px rgba(255, 215, 0, 0.15); }
-        .glow-text-primary { text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
-        .luxury-card {
-            background-color: #0D0D0D;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 2.5rem;
-            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-        }
-        .luxury-card:hover {
-            border-color: rgba(255, 215, 0, 0.2);
-            transform: translateY(-0.75rem);
-            box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.9);
-        }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0F0F0B; }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #FFD700; }
-        .loading-screen {
-            position: fixed;
-            inset: 0;
-            background: #0F0F0B;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-        }
-    </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KiSaladas Premium - O Sabor que Impressiona</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Outfit:wght@400;600;800;900&display=swap" rel="stylesheet">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body {
+  background:#0F0F0B;
+  color:white;
+  font-family: 'Inter', sans-serif;
+}
+.loading-screen{
+  position:fixed;
+  inset:0;
+  background:#0F0F0B;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+}
+</style>
 </head>
+
 <body>
-    <div id="loading" class="loading-screen">
-        <div class="flex flex-col items-center">
-            <div class="w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4"></div>
-            <p class="text-primary font-black uppercase tracking-[0.3em] text-xs text-center">Carregando KiSaladas...</p>
-        </div>
-    </div>
 
-    <div id="root"></div>
+<div id="loading" class="loading-screen">
+  <div class="flex flex-col items-center">
+    <div class="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mb-4"></div>
+    <p class="text-yellow-400 font-black uppercase tracking-[0.3em] text-xs">
+      Carregando KiSaladas...
+    </p>
+  </div>
+</div>
 
-    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script src="https://unpkg.com/framer-motion@11.0.8/dist/framer-motion.js"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
+<div id="root"></div>
 
-    <script type="text/babel">
-        const { useState, useEffect, useMemo } = React;
-        const { motion, AnimatePresence } = FramerMotion;
+<!-- React estável -->
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 
-        const Icon = ({ name, size = 24, className = "" }) => {
-            const lucideIcon = lucide.icons[name];
-            if (!lucideIcon) return null;
-            const [tag, attrs, children] = lucideIcon;
-            return React.createElement(tag, {
-                ...attrs,
-                width: size,
-                height: size,
-                className: className,
-                stroke: "currentColor",
-                strokeWidth: 2,
-                strokeLinecap: "round",
-                strokeLinejoin: "round",
-                dangerouslySetInnerHTML: {
-                    __html: children.map(([childTag, childAttrs]) => {
-                        const attrStr = Object.entries(childAttrs).map(([k, v]) => `${k}="${v}"`).join(' ');
-                        return `<${childTag} ${attrStr}></${childTag}>`;
-                    }).join('')
-                }
-            });
-        };
+<script>
+const e = React.createElement;
 
-        const PRODUCTS = [
-            // COMBOS
-            { id: 1, name: "Combo Completo", price: 39.99, desc: "2 Hot Dogs + 10 Mini Salgados + Batata Frita + Molho da Casa.", category: 'combo', tag: "CAMPEÃO" },
-            { id: 2, name: "Combo Kitudão", price: 38.00, desc: "Hambúrguer Kitudão + Batata Frita + Refrigerante Lata.", category: 'combo' },
-            { id: 3, name: "Combo 3 Pastéis", price: 33.00, desc: "3 Pastéis Tradicionais + 1 Guaraná 600ml.", category: 'combo' },
-            { id: 4, name: "Combo Irresistível", price: 30.00, desc: "Macarronada + Salada de Frutas 400ml + Fanta Laranja/Uva.", category: 'combo' },
-            { id: 5, name: "Combo Chickem Bacon", price: 30.00, desc: "Chickem Bacon + Batata Frita + Refrigerante Lata.", category: 'combo' },
-            { id: 6, name: "Combo Especial", price: 15.99, desc: "Salada P + Hot Dog + Coca Lata.", category: 'combo' },
+function App() {
 
-            // BURGERS
-            { id: 7, name: "Kitudão Premium", price: 23.00, desc: "Pão, hambúrguer, ovo, bacon, frango, salsicha, presunto, mussarela, calabresa, batata palha, molho big mac, alface e tomate.", category: 'burger', tag: "O MONSTRO" },
-            { id: 8, name: "Sol Burger", price: 20.00, desc: "Pão, carne de sol desfiada, bacon crocante e cream cheese original.", category: 'burger' },
-            { id: 9, name: "Big Bacon", price: 17.00, desc: "Pão, hambúrguer, mussarela, bacon em dobro, molho big mac, alface e tomate.", category: 'burger' },
-            { id: 10, name: "Chicken Bacon", price: 14.00, desc: "Pão, steak de frango, bacon, mussarela, maionese hellmann's e alface.", category: 'burger' },
-            { id: 11, name: "Ki-Burgão", price: 15.00, desc: "Pão, hambúrguer, ovo, salsicha, presunto, mussarela, alface, tomate e batata palha.", category: 'burger' },
-            { id: 12, name: "Cheddar Bacon", price: 15.00, desc: "Pão, hambúrguer, muito cheddar e bacon crocante.", category: 'burger' },
+  React.useEffect(() => {
+    const loader = document.getElementById("loading");
+    if(loader){
+      loader.style.opacity = "0";
+      setTimeout(()=> loader.remove(),500);
+    }
+  },[]);
 
-            // PRATOS
-            { id: 13, name: "Panqueca de Carne de Sol", price: 26.00, desc: "2 Panquecas grandes, molho branco, batata frita e salpicão.", category: 'prato' },
-            { id: 14, name: "Strogonoff de Frango", price: 25.00, desc: "Acompanha arroz soltinho e batata frita crocante.", category: 'prato' },
-            { id: 15, name: "Prato Especial", price: 20.00, desc: "Creme de galinha, arroz, salpicão e batata frita.", category: 'prato' },
-            { id: 16, name: "Macarronada KiSaladas", price: 18.00, desc: "Massa premium ao molho bolonhesa ou frango.", category: 'prato' },
+  return e("div",{className:"min-h-screen flex items-center justify-center text-center px-6"},
+    e("div",null,
+      e("h1",{className:"text-6xl font-black text-yellow-400 mb-6 italic"},
+        "KiSaladas Premium"
+      ),
+      e("p",{className:"text-gray-400 text-lg"},
+        "Seu site está funcionando corretamente no GitHub Pages."
+      )
+    )
+  );
+}
 
-            // PASTÉIS E SALGADOS
-            { id: 17, name: "Pastel Especial", price: 10.00, desc: "Carne com Queijo, Bacon ou Cream Cheese.", category: 'pastel' },
-            { id: 18, name: "Cento de Salgados", price: 45.00, desc: "100 mini salgados variados (festa).", category: 'pastel' },
-            { id: 19, name: "Mini Salgados (20 un)", price: 10.00, desc: "Porção de coxinha ou bolinha de queijo.", category: 'pastel' },
-            { id: 20, name: "Hot Dog Simples", price: 8.00, desc: "Pão, 2 salsichas, molho e batata palha.", category: 'pastel' },
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(e(App));
+</script>
 
-            // SOBREMESAS / AÇAÍ
-            { id: 21, name: "Açaí Trufado 400ml", price: 17.00, desc: "Açaí premium com 2 cremes e 1 fruta à escolha.", category: 'sobremesa', tag: "GELADO" },
-            { id: 22, name: "Salada de Frutas 400ml", price: 10.00, desc: "Mix de frutas frescas (Tradicional, Lá Creme ou Ninho).", category: 'sobremesa' },
-            { id: 23, name: "Copo da Felicidade", price: 15.00, desc: "Camadas de creme, chocolate e bombom.", category: 'sobremesa' }
-        ];
-
-        const Navbar = ({ onOpenMenu, onOpenAbout, isOpen, cartCount }) => (
-            <header className="fixed top-0 inset-x-0 z-50 bg-[#0F0F0B]/90 backdrop-blur-2xl border-b border-white/10 py-6 px-4 md:px-10 flex justify-between items-center transition-all">
-                <div className="flex items-center gap-4 group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-                    <div className="w-10 h-10 md:w-14 md:h-14 bg-primary rounded-full border-[3px] border-secondary flex items-center justify-center glow-primary relative overflow-hidden">
-                        <div className="text-secondary font-black text-xl md:text-2xl z-10">K</div>
-                    </div>
-                    <div>
-                        <h1 className="font-display font-black text-xl md:text-2xl uppercase tracking-tighter leading-none italic">Ki<span className="text-primary italic">Saladas</span></h1>
-                        <p className="text-[8px] md:text-[10px] text-primary font-bold tracking-[0.3em] uppercase opacity-80">O Sabor que Impressiona</p>
-                    </div>
-                </div>
-                <div className="hidden lg:flex items-center gap-10 text-[11px] font-black uppercase tracking-[0.2em] text-gray-500">
-                    <a href="#menu" className="hover:text-primary transition-colors cursor-pointer">Cardápio</a>
-                    <button onClick={onOpenAbout} className="hover:text-primary transition-colors cursor-pointer uppercase tracking-[0.2em]">Sobre Nós</button>
-                    <a href="#contato" className="hover:text-primary transition-colors cursor-pointer">Contato</a>
-                </div>
-                <div className="flex items-center gap-4 md:gap-6">
-                    <div className="hidden sm:flex items-center gap-3">
-                        <div className={`w-2 h-2 rounded-full ${isOpen ? 'bg-green-500 animate-pulse' : 'bg-red-500'}`}></div>
-                        <span className={`text-[10px] font-black uppercase tracking-tighter ${isOpen ? 'text-green-500' : 'text-red-500'}`}>{isOpen ? 'Aberto agora' : 'Fechado agora'}</span>
-                    </div>
-                    <button onClick={onOpenMenu} className="relative bg-zinc-900 border border-white/10 hover:border-primary/50 text-white w-12 h-12 md:w-14 md:h-14 rounded-2xl flex items-center justify-center transition-all hover:scale-105 shadow-2xl">
-                        <Icon name="ShoppingBag" size={20} className="text-primary" />
-                        {cartCount > 0 && <span className="absolute -top-2 -right-2 bg-secondary text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center border-2 border-zinc-900">{cartCount}</span>}
-                    </button>
-                </div>
-            </header>
-        );
-
-        function App() {
-            const [activeTab, setActiveTab] = useState('all');
-            const [cart, setCart] = useState([]);
-            const [isCartOpen, setIsCartOpen] = useState(false);
-            const [isAboutOpen, setIsAboutOpen] = useState(false);
-            const [isOpen, setIsOpen] = useState(true);
-
-            useEffect(() => {
-                const loader = document.getElementById('loading');
-                if (loader) loader.style.display = 'none';
-            }, []);
-
-            const filteredProducts = activeTab === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.category === activeTab);
-            const cartTotal = cart.reduce((acc, item) => acc + (item.product.price * item.quantity), 0);
-            const cartCount = cart.reduce((acc, item) => acc + item.quantity, 0);
-
-            const addToCart = (product) => {
-                setCart(prev => {
-                    const ex = prev.find(i => i.product.id === product.id);
-                    if (ex) return prev.map(i => i.product.id === product.id ? { ...i, quantity: i.quantity + 1 } : i);
-                    return [...prev, { product, quantity: 1 }];
-                });
-                setIsCartOpen(true);
-            };
-
-            const getWhatsAppLink = () => {
-                const phone = "558398830530";
-                let t = "🍟 *NOVO PEDIDO KISALADAS* 🍟\n\n";
-                cart.forEach(i => t += `• *${i.quantity}x* ${i.product.name} - R$ ${(i.product.price * i.quantity).toFixed(2)}\n`);
-                t += `\n💰 *Total: R$ ${cartTotal.toFixed(2)}*\n\n_Pedido feito via Menu Digital Premium._`;
-                return `https://wa.me/${phone}?text=${encodeURIComponent(t)}`;
-            };
-
-            return (
-                <div className="min-h-screen">
-                    <Navbar onOpenMenu={() => setIsCartOpen(true)} onOpenAbout={() => setIsAboutOpen(true)} isOpen={isOpen} cartCount={cartCount} />
-
-                    <main>
-                        <section className="relative pt-40 pb-20 px-6 md:px-12 overflow-hidden border-b border-white/10">
-                            <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-                                <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }}>
-                                    <div className="bg-secondary px-4 py-1 inline-block text-[10px] font-black mb-6 skew-x-[-15deg] uppercase">Qualidade Superior</div>
-                                    <h2 className="text-6xl md:text-9xl font-display font-black uppercase italic leading-[0.85] tracking-tighter mb-8">O SABOR <br /> QUE <span className="text-primary glow-text-primary">DOMINOU.</span></h2>
-                                    <p className="text-gray-400 text-lg md:text-xl max-w-xl mb-12">Os melhores combos e lanches de Lagoa Seca, agora na palma da sua mão.</p>
-                                    <button onClick={() => document.getElementById('menu').scrollIntoView({ behavior: 'smooth' })} className="bg-primary text-black font-black py-6 px-12 rounded-2xl text-lg uppercase shadow-2xl hover:bg-white transition-all">ABRIR CARDÁPIO</button>
-                                </motion.div>
-                                <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={{ opacity: 1, scale: 1 }} className="relative aspect-square rounded-[4rem] overflow-hidden border border-white/10 shadow-2xl shadow-primary/5">
-                                    <img src="https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=800" className="w-full h-full object-cover" />
-                                </motion.div>
-                            </div>
-                        </section>
-
-                        <section id="menu" className="py-32 px-6 md:px-12">
-                            <div className="max-w-7xl mx-auto">
-                                <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
-                                    <h2 className="text-5xl md:text-7xl font-display font-black italic uppercase tracking-tighter">ESCOLHA O SEU <br/><span className="text-primary italic">FAVORITO.</span></h2>
-                                    <div className="flex flex-wrap gap-2 bg-zinc-900 p-2 rounded-2xl border border-white/5">
-                                        {['all', 'combo', 'burger', 'pastel', 'prato', 'sobremesa'].map(tab => (
-                                            <button key={tab} onClick={() => setActiveTab(tab)} className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase transition-all ${activeTab === tab ? 'bg-primary text-black' : 'text-gray-500 hover:text-white'}`}>{tab === 'all' ? 'Todos' : tab}</button>
-                                        ))}
-                                    </div>
-                                </div>
-                                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                                    {filteredProducts.map(p => (
-                                        <div key={p.id} className="luxury-card p-10 flex flex-col justify-between min-h-[360px]">
-                                            <div>
-                                                {p.tag && <span className="bg-primary/10 text-primary text-[9px] font-black px-3 py-1 rounded-full mb-4 inline-block tracking-widest">{p.tag}</span>}
-                                                <h4 className="text-3xl font-display font-black uppercase italic tracking-tighter mb-4">{p.name}</h4>
-                                                <p className="text-gray-500 text-sm mb-8 leading-relaxed">{p.desc}</p>
-                                            </div>
-                                            <div className="flex items-end justify-between">
-                                                <div>
-                                                    <span className="text-[9px] font-bold text-gray-700 uppercase tracking-widest">Preço</span>
-                                                    <div className="text-primary font-black text-4xl italic">R$ {p.price.toFixed(2)}</div>
-                                                </div>
-                                                <button onClick={() => addToCart(p)} className="bg-primary w-14 h-14 rounded-2xl flex items-center justify-center text-black hover:bg-white transition-all shadow-lg shadow-primary/20">
-                                                    <Icon name="ShoppingBag" />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </section>
-
-                        <section id="contato" className="py-32 px-6 bg-[#0c0c0b] border-t border-white/10">
-                            <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-20">
-                                <div>
-                                    <h2 className="text-5xl md:text-7xl font-display font-black uppercase tracking-tighter mb-10 italic">ONDE O SABOR <span className="text-primary">ACONTECE.</span></h2>
-                                    <p className="text-gray-400 font-bold mb-2">R. João Eusébio dos Santos, 127</p>
-                                    <p className="text-gray-500 text-sm">Lagoa Seca - Paraíba</p>
-                                    <div className="mt-8 flex items-center gap-4 text-xs font-black uppercase tracking-widest bg-primary/5 p-4 rounded-2xl border border-primary/10 inline-flex">
-                                        <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse"></div>
-                                        Pronto para te atender!
-                                    </div>
-                                </div>
-                                <div className="bg-[#111] p-10 md:p-16 rounded-[3rem] border border-white/5">
-                                    <h4 className="font-display font-black uppercase text-2xl mb-10 flex items-center gap-3 italic"><Icon name="Clock" className="text-primary" /> Horários</h4>
-                                    <div className="space-y-4 font-black">
-                                        <div className="flex justify-between py-3 border-b border-white/5 text-xs uppercase tracking-widest">
-                                            <span>Segunda a Sexta</span>
-                                            <span className="text-primary">12:00 - 22:00</span>
-                                        </div>
-                                        <div className="flex justify-between py-3 border-b border-white/5 text-xs uppercase tracking-widest">
-                                            <span>Sábado</span>
-                                            <span className="text-primary">11:00 - 17:00</span>
-                                        </div>
-                                        <div className="flex justify-between py-3 text-xs uppercase tracking-widest opacity-30">
-                                            <span>Domingo</span>
-                                            <span>Fechado</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </section>
-                        
-                        <section className="h-20 bg-secondary flex items-center overflow-hidden border-y-4 border-primary">
-                            <div className="flex animate-marquee whitespace-nowrap">
-                                {[1,2,3,4,5].map(i => <span key={i} className="mx-8 text-sm font-black uppercase text-white">KISALADAS PREMIUM ★ QUALIDADE SUPERIOR ★ SABOR INCOMPARÁVEL ★ </span>)}
-                            </div>
-                        </section>
-                    </main>
-
-                    {/* Carrinho / Drawer */}
-                    <AnimatePresence>
-                        {isCartOpen && (
-                            <div className="fixed inset-0 z-[110] flex justify-end">
-                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsCartOpen(false)} className="absolute inset-0 bg-black/80 backdrop-blur-md" />
-                                <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} className="relative w-full max-w-md bg-zinc-950 border-l border-white/10 h-full flex flex-col p-8">
-                                    <div className="flex justify-between items-center mb-8">
-                                        <h2 className="font-display font-black uppercase text-2xl italic">Minha Sacola</h2>
-                                        <button onClick={() => setIsCartOpen(false)} className="p-2 hover:bg-white/5 rounded-full"><Icon name="X" /></button>
-                                    </div>
-                                    <div className="flex-grow overflow-y-auto space-y-6">
-                                        {cart.length === 0 ? (
-                                            <div className="h-full flex flex-col items-center justify-center text-center opacity-20">
-                                                <Icon name="ShoppingBag" size={64} className="mb-4" />
-                                                <p className="font-black uppercase tracking-widest">Sacola vazia</p>
-                                            </div>
-                                        ) : cart.map(i => (
-                                            <div key={i.product.id} className="bg-white/5 p-4 rounded-2xl flex justify-between items-center">
-                                                <div>
-                                                    <h4 className="font-black uppercase text-xs mb-1">{i.product.name}</h4>
-                                                    <span className="text-primary text-sm font-black">R$ {(i.product.price * i.quantity).toFixed(2)}</span>
-                                                </div>
-                                                <div className="flex items-center gap-4">
-                                                    <span className="font-black text-lg">{i.quantity}x</span>
-                                                    <button onClick={() => setCart(cart.filter(x => x.product.id !== i.product.id))} className="text-secondary p-2 hover:bg-secondary/10 rounded-xl transition-all">
-                                                        <Icon name="Trash2" size={18} />
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        ))}
-                                    </div>
-                                    {cart.length > 0 && (
-                                        <div className="pt-8 border-t border-white/10 space-y-4">
-                                            <div className="flex justify-between font-black items-end">
-                                                <span className="uppercase text-[10px] text-gray-500 tracking-widest">Total do Investimento</span>
-                                                <span className="text-primary text-3xl italic leading-none">R$ {cartTotal.toFixed(2)}</span>
-                                            </div>
-                                            <a href={getWhatsAppLink()} target="_blank" className="w-full bg-primary text-black font-black py-6 rounded-2xl block text-center uppercase shadow-2xl hover:bg-white transition-all">FINALIZAR NO WHATSAPP</a>
-                                        </div>
-                                    )}
-                                </motion.div>
-                            </div>
-                        )}
-                    </AnimatePresence>
-
-                    {/* Modal Sobre */}
-                    <AnimatePresence>
-                        {isAboutOpen && (
-                            <div className="fixed inset-0 z-[120] flex items-center justify-center p-6">
-                                <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setIsAboutOpen(false)} className="absolute inset-0 bg-black/90 backdrop-blur-2xl" />
-                                <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="relative w-full max-w-xl bg-zinc-900 border border-white/10 p-12 rounded-[3rem] shadow-2xl">
-                                     <button onClick={() => setIsAboutOpen(false)} className="absolute top-8 right-8 text-gray-500 hover:text-white"><Icon name="X" /></button>
-                                     <h2 className="text-4xl md:text-5xl font-display font-black uppercase italic mb-8">KISALADAS <br/><span className="text-primary italic">PREMIUM.</span></h2>
-                                     <p className="text-gray-300 mb-6 leading-relaxed">Referência em sabor e qualidade em Lagoa Seca. Nosso compromisso é levar até você a experiência de um lanche premium, com ingredientes selecionados e o toque artesanal que você merece.</p>
-                                     <div className="p-6 bg-white/5 rounded-2xl border-l-4 border-primary">
-                                        <p className="font-black text-white italic text-sm">"Não vendemos apenas lanches, criamos momentos de satisfação através do sabor."</p>
-                                     </div>
-                                     <button onClick={() => setIsAboutOpen(false)} className="mt-10 bg-primary text-black py-4 px-10 rounded-xl text-[10px] font-black uppercase hover:bg-white transition-all">ENTENDIDO</button>
-                                </motion.div>
-                            </div>
-                        )}
-                    </AnimatePresence>
-                </div>
-            );
-        }
-
-        const root = ReactDOM.createRoot(document.getElementById('root'));
-        root.render(<App />);
-    </script>
 </body>
 </html>
